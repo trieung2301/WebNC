@@ -1,0 +1,18 @@
+1.đầu tiên file index bên ngoài khởi động db và truyền pdo vào các model
+2. sau đó phân tách url và gọi tới controller tương ứng chức năng
+3. Sau đó các controller đó sẽ gọi tới database và truyền giá trị db vào controller để thực thi
+4. thực thi xong sẽ redirect hoặc chạy chức năng
+
+
+
+//controller tổng để gom tất cả controller con lại
+controller con thì gom các câu lệnh chức năng tương ứng trong database khi thực thi post,put,delete
+
+PDO:lớp trong PHP để kết nối và làm việc với nhiều loại cơ sở dữ liệu
+isset kiểm biến có tồn tại hay không
+specialchar: chuyển kí tự thành chuỗi an toàn tránh xss
+
+đầu tiên nhập vào url, xử lý url, gọi controller, load ra view, nhập vào,gửi lên server redirect 
+
+include nếu k chèn dc sẽ chỉ báo lỗi
+require nếu k chèn đc sẽ ngừng thực thi

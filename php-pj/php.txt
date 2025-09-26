@@ -1,0 +1,6 @@
+php
+đầu tiên chạy vào index
+index load ra router tương ứng
+router sẽ chạy đường dẫn load ra trong controller ví dụ /product hoặc /product/create
+sau đó controller thêm sửa xóa và gọi tới db
+xử lý xong trả về view
