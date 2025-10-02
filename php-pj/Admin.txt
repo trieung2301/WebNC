@@ -1,0 +1,115 @@
+luôn thực thi adminCheck() để kiểm tra session và role phải là 'admin'. Nếu không phải, nó sẽ chuyển hướng về login và ngừng thực thi.
+
+Trang chủ Admin (homeAdmin.php)
+
+Lấy tổng số người dùng, tổng số sản phẩm, tổng số đơn hàng từ DB và đồng thời đếm số đơn theo trạng thái 'Chờ xác nhận' và 'Đang giao'.
+Thực thi lấy ra dữ liệu doanh thu theo Ngày, Tháng, Năm, và Tổng doanh thu.
+Lấy danh sách Top 10 Khách hàng VIP(Dựa theo số đơn đã Giao thành công).
+=> Controller gửi tất cả dữ liệu vừa thu thập đến View.
+View sẽ lọc ra nếu danh sách khách hàng VIP trống thì hiển thị thông báo.
+
+Trang quản lý Khách Hàng (userAdmin.php)
+
+Controller lấy ra tất cả người dùng từ DB, kiểm tra từng user để lọc ra user có role là 'user'. 
+Trong khi kiểm tra từng user, có thêm tính toán tổng chi tiêu (calculateTotalSpent) và xác định level (determineLevel), nếu tổng chi tiêu hoặc level thay đổi, sẽ update lại lên DB.
+Thực thi tìm kiếm bằng cách lọc tên đầy đủ hoặc tên đăng nhập khớp với searchTerm từ $_GET['search'] (URL).
+- Thêm Khách hàng (addUser.php)
+Nhận dữ liệu POST (thông tin khách hàng).
+Kiểm tra: Tên đăng nhập/mật khẩu không được trống, tên đăng nhập chưa tồn tại, mật khẩu tối thiểu 6 ký tự, và mật khẩu xác nhận phải khớp.
+Nếu lỗi, lưu thông báo vào session và chuyển hướng về trang Thêm.
+Nếu hợp lệ, thực thi register (thêm) khách hàng mới vào DB.
+Thành công, chuyển hướng về trang Danh sách.
+- Các hành động ở cột Thao tác
+Lấy ID từ URL. Nếu ID không tồn tại, huyển hướng về trang Danh sách.
+Sửa -> Cập nhật (updateUser): Nhận dữ liệu POST, thực thi updateInfo vào DB, sau đó huyển hướng về trang Danh sách.
+Đổi Mật khẩu (changePassword): Nhận POST, kiểm tra mật khẩu mới tối thiểu 6 ký tự, thực thi updatePassword vào DB, sau đó chuyển hướng về trang Danh sách.
+Khóa/Mở khóa (toggleStatus): Nhận POST với id và currentStatus. Xác định trạng thái mới. Thực thi updateStatus vào DB, sau đó chuyển hướng về trang Danh sách.
+Xóa Tài khoản (deleteUser): Lấy ID từ URL. Thực thi delete người dùng khỏi DB, sau đó chuyển hướng về trang Danh sách.
+
+Trang quản lý Nhân viên (staffsAdmin.php)
+
+Khi thực hiện các thao tác Sửa/Thao tác, Controller có thêm một bước kiểm tra checkStaffRole để đảm bảo ID đang được thao tác có role là 'Admin'.
+Controller lấy ra tất cả người dùng từ DB, sau đó lọc ra những người có role là 'admin'.
+Thực thi tìm kiếm bằng cách lọc tên đầy đủ hoặc tên đăng nhập khớp với $_GET['search'].
+- Thêm Nhân viên (staffAdd.php)
+Nhận dữ liệu POST từ form.
+Kiểm tra: Tên đăng nhập/mật khẩu không được trống, tên đăng nhập đã tồn tại chưa, mật khẩu tối thiểu 6 ký tự, và mật khẩu xác nhận phải khớp.
+Nếu lỗi, lưu lỗi vào session và chuyển hướng lại trang Thêm.
+Nếu thành công, thực thi register người dùng mới vào DB (với role là 'admin').
+Đặt thông báo thành công và chuyển hướng về trang Danh sách
+- Các hành động ở cột Thao tác
+Sửa -> Cập nhật (updateStaff): Nhận dữ liệu POST (bao gồm ID), thực thi updateInfo vào DB, sau đó chuyển hướng về trang Danh sách.
+Đổi Mật khẩu (changePasswordStaff): Nhận POST, kiểm tra mật khẩu mới tối thiểu 6 ký tự, thực thi updatePassword vào DB, sau đó chuyển hướng về trang Danh sách.
+Khóa/Mở khóa (toggleStaffStatus): Nhận POST với id và currentStatus. Không cho phép admin tự khóa/mở khóa tài khoản của chính mình.
+Xác định trạng thái mới, thực thi updateStatus vào DB, sau đó chuyển hướng về trang Danh sách.
+Xóa Tài khoản (deleteStaff): Lấy ID từ URL (qua $_GET['id']). Kiểm tra vai trò phải là 'admin'. Thực thi delete khỏi DB, sau đó chuyển hướng về trang Danh sách.
+
+Trang Quản lý Sản phẩm (productAdmin.php)
+
+Lấy tất cả sản phẩm từ DB và các tên các danh mục dựa trên id danh mục để hiển thị.
+Thực thi tìm kiếm bằng cách lọc tên sản phẩm khớp với $_GET['search'].
+- Thêm Sản phẩm (productForm.php)
+Nhận dữ liệu POST từ form (tên, giá, mô tả, số lượng, categoryId...) và file image_file.
+Upload Hình Ảnh: Gọi hàm handleImageUpload để xử lý file. Hàm này kiểm tra file và nếu thành công sẽ lưu ảnh vào thư mục và trả về tên file mới.
+Kiểm tra dữ liệu POST (tên, giá, categoryId...) không được rỗng/nhỏ hơn 0.
+Nếu lỗi, Controller đặt lỗi vào session và chuyển hướng lại trang Thêm.
+Nếu thành công, thực thi addProduct vào DB.
+Đặt thông báo thành công và chuyển hướng về trang Danh sách.
+- Sửa Sản phẩm (productForm.php)
+Nhận dữ liệu POST (bao gồm ID sản phẩm và tên ảnh cũ old_image) và file image_file (nếu có).
+Xử lý Ảnh: Gọi hàm handleImageUpload để kiểm tra và lưu ảnh mới (nếu có). Nếu không có ảnh mới, nó giữ lại tên ảnh cũ.
+Kiểm tra dữ liệu POST (ID, tên, giá, categoryId...).
+Thực thi updateProduct vào DB.
+Đặt thông báo thành công/thất bại và chuyển hướng về trang Danh sách.
+- Xóa Sản phẩm
+Lấy ID từ URL (qua $_GET['id']).
+Kiểm tra ID hợp lệ.
+Thực thi deleteProduct khỏi DB.
+Đặt thông báo và chuyển hướng về trang Danh sách.
+
+Trang Quản lý Giảm giá (discountAdmin.php)
+
+Lấy ra tất cả mã giảm giá (coupons) từ DB.
+Controller thực hiện tính toán trạng thái của từng mã giảm giá để hiển thị:
+Kiểm tra xem mã đã Hết hạn (expires_at < time()) chưa.
+Kiểm tra xem mã đã Hết lượt dùng (used_count >= usage_limit) chưa.
+Gán các class và text trạng thái tương ứng (Đã tắt, Kích hoạt, Hết hạn, Hết lượt dùng).
+- Thêm Mã Giảm giá (addCoupon.php)
+Nhận dữ liệu POST từ form (code, giá trị, ngày hết hạn, giới hạn sử dụng, trạng thái).
+Kiểm tra giá trị giảm giá (discount_value) và giới hạn sử dụng (usage_limit) hợp lệ (> 0).
+Nếu lỗi, Controller lưu lỗi và chuyển hướng lại trang Danh sách (để JS mở lại Modal(hộp thoại nổi)).
+Nếu thành công, thực thi addCoupon vào DB.
+Đặt thông báo thành công và chuyển hướng về trang Danh sách.
+- Các hành động ở cột Thao tác
+Sửa Mã Giảm giá (Modal editCoupon.php):
+Dữ liệu hiện tại(dữ liệu cũ trước khi sửa) của mã (code, value, expires, limit, status) được lấy bằng JavaScript thông qua các thuộc tính data- của nút Sửa trên danh sách(giao diện chính của quản lý Giảm giá) và được đổ vào form trong Modal.
+Thực thi Cập nhật: Nhận dữ liệu POST, bao gồm cả original_code để xác định mã cần sửa.
+Kiểm tra dữ liệu hợp lệ. Thực thi updateCoupon vào DB.
+Đặt thông báo và chuyển hướng về trang Danh sách.
++ Kích hoạt/Vô hiệu hóa mã:
+Nhận POST với code và action_type (enable/disable).
+Tùy thuộc vào action_type, Controller gọi hàm enableCoupon hoặc disableCoupon để thay đổi trạng thái trong DB.
+Đặt thông báo và chuyển hướng về trang Danh sách.
++ Xóa Mã Giảm giá (deleteCoupon):
+Lấy Code từ URL (qua $_GET['code']).
+Kiểm tra code không rỗng. Thực thi deleteCoupon khỏi DB.
+Đặt thông báo và chuyển hướng về trang Danh sách.
+
+Trang Quản lý Đơn hàng (orderAdmin.php)
+
+Lấy tất cả đơn hàng từ DB để hiển thị.
+Controller sử dụng STATUS_MAP (một hằng số định nghĩa trạng thái) để ánh xạ trạng thái trong DB (Chờ xác nhận, Đang giao, Giao thành công, Đã hủy) sang tên hiển thị và màu sắc phù hiệu (badge) tương ứng.
+- Cập nhật Trạng thái
+Nhận dữ liệu POST từ form (gồm ID đơn hàng và Trạng thái mới được chọn từ <select>).
+Kiểm tra ID đơn hàng hợp lệ và Trạng thái mới phải khác trạng thái hiện tại.
+Thực thi updateOrderStatus trong DB.
+Nếu cập nhật thành công, đặt thông báo và chuyển hướng về trang Danh sách Đơn hàng.
+Nếu cập nhật thất bại (ví dụ: lỗi DB), đặt thông báo lỗi và chuyển hướng về trang Danh sách.
+- Xem Chi tiết Đơn hàng
+Lấy ID đơn hàng từ URL (qua $_GET['id']).
+Nếu không có ID, đặt lỗi và chuyển hướng về trang Danh sách.
+Controller gọi hàm getOrderById để lấy toàn bộ thông tin đơn hàng, bao gồm: Thông tin chung (khách hàng, địa chỉ, tổng tiền, phương thức thanh toán), Danh sách Sản phẩm đã đặt (Order Items).
+Nếu không tìm thấy đơn hàng, đặt lỗi và chuyển hướng về trang Danh sách
+
+
+
