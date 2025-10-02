@@ -1,3 +1,0 @@
-Nhớ chạy sql mới có thêm sẵn dữ liệu mẫu để test
-model/User.php
-site/AuthController.php
