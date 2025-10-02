@@ -1,8 +1,23 @@
-<?php include "admin_header.php"; ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/php-pj/index.php?action=homeAdmin">Trang chủ Admin</a>
+        <a href="/php-pj/index.php?action=home" class="btn btn-outline-light me-3">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại Shop
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <span class="nav-link">
+                        <i class="fa-solid fa-user-circle"></i>
+                        <?php echo htmlspecialchars($_SESSION['user']['username'] ?? 'Admin'); ?>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/php-pj/index.php?action=logout">Đăng xuất</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<div class="container mt-4">
-  <h1>Trang quản trị</h1>
-  <p>Chào mừng bạn đến với admin panel.</p>
-</div>
-
-<?php include "admin_footer.php"; ?>
+<div class="wrapper">
