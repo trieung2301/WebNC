@@ -1,0 +1,57 @@
+php
+đầu tiên chạy vào index
+index load ra router tương ứng
+router sẽ chạy đường dẫn load ra trong controller ví dụ /product hoặc /product/create
+sau đó controller lấy dữ liệu gủi từ client (nếu có) và gọi tới db
+xử lý xong trả về view
+
+PDO:lớp trong PHP để kết nối và làm việc với nhiều loại cơ sở dữ liệu
+isset kiểm biến có tồn tại hay không
+specialchar: chuyển kí tự thành chuỗi an toàn tránh xss
+
+
+
+include nếu k chèn dc sẽ chỉ báo lỗi
+require nếu k chèn đc sẽ ngừng thực thi
+
+fetch_assoc để trả về mảng key value
+include __DIR__ có thể truyền dữ liệu vô view
+
+<?= là cách viết gọn của <?php echo
+
+
+----------------------------------------------
+Ở trang home:
+-lấy ra category và load ra, khi user chọn sẽ gọi post tới action của form ngay lập tức và gọi tới home controller load ra sản phẩm tương ứng category
+-thêm sản phẩm gọi tới cartController add, gửi productId và số lượng mặc định =1, sau đó check số lượng trong cart + với số lượng vừa thêm k được vượt
+    số lượng sẵn có, nếu vượt sẽ k tăng tiếp, sau đó thục thi thêm vào giỏ hàng
+-map dùng embeded nhúng vào
+-Khi nhân vào product, sẽ truyền productId từ hàm for load ra sản phẩm vào url qua action, sau đó gọi tới action=productDetails chạy controller ProductController
+    Trong productDetails sẽ thực thi lấy ra userid và comment text post lên nếu có và redirect chính trang đó để hiển thị
+    Khi nhấn đánh giá, nó sẽ kiểm tra database rating xem user có chọn chưa (userid và productid), nếu chưa thì user chọn value từ 1-5 và post lên, nó sẽ thêm vào db
+
+Ở trang sản phẩm:
+- Thực thi gọi tới action=home, lấy ra tất cả sản phẩm. Lấy thêm category và khi nhán lọc sẽ post lên value category được chọn và lọc ra nó và redirect lại trang đó
+
+Ở trang giỏ hàng
+-Lấy ra tất cả sản phẩm trong database Cart qua CartController
+
+Ở trang đơn hàng
+- nếu nhấn đơn đặt hàng sẽ select ra tất cả chờ xác nhận, đang giao. 
+- Lịch sử đơn hàng thì select ra tất cả đã thành công
+- Đơn đã hủy sẽ select ra tất cả đã hủy
+- Controller sẽ gửi tất cả đơn ,Ở view sẽ lọc ra nếu status là Chờ xác nhận thì sẽ có nút hủy, không thì k hiện k thể hủy
+- Khi nhấn nút hủy, nó sẽ gọi tới orderController và gọi index, tại đây nó sẽ láy ra id user và product,
+     thực thi db hủy đơn hàng bằng update status, thực thi cộng số lượng đã hủy lấy ra từ order cộng vào database product 
+     thực thi cộng số lượng coupon vào lại
+
+Ở thanh tìm kiếm:
+    Nhận post từ ô tìm kiếm, thực thi database select ra tên sản phẩm và truyền các sản phẩm vừa lọc ra trang index
+
+Ở Checkout
+Khi nguòi dùng nhấn mua hàng, điền thông tin và coupon, nó sẽ truyền dữ liệu tới backend, kiểm tra coupon có tồn tại, có sử dụng bởi user chưa,
+    có còn hạn sử dụng, còn dư không(userlimit>usecount)
+    nếu chưa thì thực hiện add user và coupon vào database CouponUsage ghi lại lịch sử sử dụng, sau đó thực thi updata tăng use count
+    Sau đó thì tạo ra order trong Order, thêm các sản phẩm cùng với id order đó vào Order_items
+    cuối cùng thực thi update quantity product tương ứng
+    
