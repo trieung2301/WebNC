@@ -5,7 +5,7 @@ $old_data = $old_data ?? [];
 <div class="modal fade" id="addCouponModal" tabindex="-1" aria-labelledby="addCouponModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="index.php?action=admin/discounts/add" method="POST">
+            <form action="/php-pj/admin/discounts/add" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCouponModalLabel">Thêm Mã Giảm Giá Mới</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

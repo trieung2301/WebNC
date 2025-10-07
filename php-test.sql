@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 01, 2025 lúc 10:24 AM
+-- Thời gian đã tạo: Th10 04, 2025 lúc 04:23 PM
 -- Phiên bản máy phục vụ: 11.6.2-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -81,7 +81,8 @@ INSERT INTO `comments` (`id`, `product_id`, `user_id`, `comment_text`, `created_
 (22, 31, 2, 'hay', '2025-09-29 12:16:10'),
 (23, 30, 2, 'k', '2025-09-29 12:16:24'),
 (24, 30, 2, 'ngon', '2025-10-01 04:45:47'),
-(25, 31, 2, 'đã quá', '2025-10-01 04:45:56');
+(25, 31, 2, 'đã quá', '2025-10-01 04:45:56'),
+(26, 31, 2, 'ok', '2025-10-03 11:05:29');
 
 -- --------------------------------------------------------
 
@@ -96,16 +97,16 @@ CREATE TABLE `coupons` (
   `expires_at` datetime DEFAULT NULL,
   `usage_limit` int(11) DEFAULT NULL,
   `used_count` int(11) DEFAULT 0,
-  `stats` tinyint(1) NOT NULL DEFAULT 1
+  `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `coupons`
 --
 
-INSERT INTO `coupons` (`id`, `code`, `discount_value`, `expires_at`, `usage_limit`, `used_count`, `stats`) VALUES
-(1, 'GIAM10', 10.00, '2025-09-18 23:59:59', 100, 0, 1),
-(3, 'VIP30', 30.00, '2025-09-25 14:19:48', 2, 2, 1);
+INSERT INTO `coupons` (`id`, `code`, `discount_value`, `expires_at`, `usage_limit`, `used_count`, `status`) VALUES
+(1, 'GIAM10', 100000.00, '2029-09-28 23:59:59', 100, 1, 1),
+(3, 'VIP30', 300000.00, '2028-09-23 14:19:48', 10, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -120,6 +121,13 @@ CREATE TABLE `coupon_usages` (
   `order_id` int(11) DEFAULT NULL,
   `used_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `coupon_usages`
+--
+
+INSERT INTO `coupon_usages` (`id`, `user_id`, `coupon_id`, `order_id`, `used_at`) VALUES
+(12, 2, 3, NULL, '2025-10-03 12:25:43');
 
 -- --------------------------------------------------------
 
@@ -150,10 +158,22 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `fullname`, `phone`, `email`, `address`, `district`, `city`, `postcode`, `note`, `payment_method`, `total`, `created_at`, `updated_at`, `status`) VALUES
-(40, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'hi vọng', 'Tiền mặt', 29320000.00, '2025-10-01 13:40:24', '2025-10-01 13:40:24', 'Chờ xác nhận'),
-(41, 2, 'Chinghi', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', '', 'Tiền mặt', 6300000.00, '2025-10-01 13:42:14', '2025-10-01 13:42:14', 'Chờ xác nhận'),
-(42, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 4120000.00, '2025-10-01 13:42:55', '2025-10-01 14:05:20', 'Đang giao'),
-(43, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 6300000.00, '2025-10-01 13:43:48', '2025-10-01 13:43:48', 'Chờ xác nhận');
+(40, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'hi vọng', 'Tiền mặt', 29320000.00, '2025-10-01 13:40:24', '2025-10-03 18:39:38', 'Đã hủy'),
+(41, 2, 'Chinghi', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', '', 'Tiền mặt', 6300000.00, '2025-10-01 13:42:14', '2025-10-03 18:39:37', 'Đã hủy'),
+(42, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 4120000.00, '2025-10-01 13:42:55', '2025-10-03 19:19:38', 'Đã hủy'),
+(43, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 6300000.00, '2025-10-01 13:43:48', '2025-10-03 18:39:25', 'Đã hủy'),
+(44, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 18900000.00, '2025-10-03 18:06:22', '2025-10-03 18:39:23', 'Đã hủy'),
+(45, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', 'a', 'a', 'Tiền mặt', 6300000.00, '2025-10-03 18:08:45', '2025-10-03 18:39:22', 'Đã hủy'),
+(46, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', 'a', 'a', 'a', 'a', 'a', 'Tiền mặt', 6300000.00, '2025-10-03 18:10:32', '2025-10-03 18:39:21', 'Đã hủy'),
+(47, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'a', 'a', 'a', 'Tiền mặt', 4120000.00, '2025-10-03 18:32:01', '2025-10-03 18:39:17', 'Đã hủy'),
+(48, 2, 'Trần Chí Nghị', '0937861799', 'admin@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 4120000.00, '2025-10-03 18:32:52', '2025-10-03 18:39:13', 'Đã hủy'),
+(49, 2, 'a', 'a', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', 'a', 'a', 'Tiền mặt', 6300000.00, '2025-10-03 18:38:59', '2025-10-03 18:39:11', 'Đã hủy'),
+(50, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 126000000.00, '2025-10-03 18:40:52', '2025-10-03 18:43:34', 'Đã hủy'),
+(51, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 4120000.00, '2025-10-03 18:42:36', '2025-10-03 18:43:35', 'Đã hủy'),
+(52, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 12300000.00, '2025-10-03 18:46:51', '2025-10-03 18:48:38', 'Giao thành công'),
+(53, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '', '', 'Tiền mặt', 4020000.00, '2025-10-03 19:05:54', '2025-10-03 19:06:32', 'Giao thành công'),
+(54, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', '7', 'Tphcm', '00000', 'a', 'Tiền mặt', 10420000.00, '2025-10-03 19:20:52', '2025-10-03 19:20:52', 'Chờ xác nhận'),
+(55, 2, 'Trần Chí Nghị', '0937861799', 'trannghi1672004@gmail.com', '21D/9', 'a', 'a', 'a', 'a', 'Tiền mặt', 6000000.00, '2025-10-03 19:25:43', '2025-10-03 19:25:43', 'Chờ xác nhận');
 
 -- --------------------------------------------------------
 
@@ -180,7 +200,20 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, 
 (69, 40, 30, 1, 4120000.00, '2025-10-01 13:40:24', '2025-10-01 13:40:24'),
 (70, 41, 31, 1, 6300000.00, '2025-10-01 13:42:14', '2025-10-01 13:42:14'),
 (71, 42, 30, 1, 4120000.00, '2025-10-01 13:42:55', '2025-10-01 13:42:55'),
-(72, 43, 31, 1, 6300000.00, '2025-10-01 13:43:48', '2025-10-01 13:43:48');
+(72, 43, 31, 1, 6300000.00, '2025-10-01 13:43:48', '2025-10-01 13:43:48'),
+(73, 44, 31, 3, 6300000.00, '2025-10-03 18:06:22', '2025-10-03 18:06:22'),
+(74, 45, 31, 1, 6300000.00, '2025-10-03 18:08:45', '2025-10-03 18:08:45'),
+(75, 46, 31, 1, 6300000.00, '2025-10-03 18:10:32', '2025-10-03 18:10:32'),
+(76, 47, 30, 1, 4120000.00, '2025-10-03 18:32:01', '2025-10-03 18:32:01'),
+(77, 48, 30, 1, 4120000.00, '2025-10-03 18:32:52', '2025-10-03 18:32:52'),
+(78, 49, 31, 1, 6300000.00, '2025-10-03 18:38:59', '2025-10-03 18:38:59'),
+(79, 50, 31, 20, 6300000.00, '2025-10-03 18:40:52', '2025-10-03 18:40:52'),
+(80, 51, 30, 1, 4120000.00, '2025-10-03 18:42:36', '2025-10-03 18:42:36'),
+(81, 52, 31, 2, 6300000.00, '2025-10-03 18:46:51', '2025-10-03 18:46:51'),
+(82, 53, 30, 1, 4120000.00, '2025-10-03 19:05:54', '2025-10-03 19:05:54'),
+(83, 54, 30, 1, 4120000.00, '2025-10-03 19:20:52', '2025-10-03 19:20:52'),
+(84, 54, 31, 1, 6300000.00, '2025-10-03 19:20:52', '2025-10-03 19:20:52'),
+(85, 55, 31, 1, 6300000.00, '2025-10-03 19:25:43', '2025-10-03 19:25:43');
 
 -- --------------------------------------------------------
 
@@ -205,8 +238,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `stock`, `category_id`, `created_at`, `updated_at`) VALUES
-(30, 'ABC-classic', 'đồng hồ này đẹp', 'dong-ho-nu.jpg', 4120000.00, 18, 2, '2025-09-18 08:32:19', '2025-10-01 06:42:55'),
-(31, 'Standard Watch', 'dfdfdfd', 'dong-ho-nam.jpg', 6300000.00, 14, 1, '2025-09-18 08:32:52', '2025-10-01 06:43:48');
+(30, 'ABC-classic', 'đồng hồ này đẹp', 'dong-ho-nu.jpg', 4120000.00, 17, 2, '2025-09-18 08:32:19', '2025-10-03 12:20:52'),
+(31, 'Standard Watch', 'dfdfdfd', 'dong-ho-nam.jpg', 6300000.00, 16, 1, '2025-09-18 08:32:52', '2025-10-03 12:25:43');
 
 -- --------------------------------------------------------
 
@@ -243,7 +276,9 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(15) NOT NULL,
+  `total_spent` decimal(15,2) NOT NULL DEFAULT 0.00,
   `role` enum('admin','user') NOT NULL DEFAULT 'user',
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `level` enum('Diamond','Gold','Silver','Common') NOT NULL DEFAULT 'Common',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -253,10 +288,11 @@ CREATE TABLE `users` (
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `phone`, `role`, `level`, `created_at`, `updated_at`) VALUES
-(2, 'admin', 'admin', '$2y$10$A1wHFPSwGDXH08uoHEDFSe7aqYuJTpSbA39yI3wrx2Ynv8wi5bgYq', 'adfadf', '0937861899', 'admin', 'Diamond', '2025-09-20 16:03:36', '2025-09-20 16:03:36'),
-(29, 'Trần Chí Nghị', 'Cisnij', '$2y$10$n0xqv9q/2kC8hElhG7kZlu8Kb/53yHWTcR6xq/kRWLvb1OQMlskO6', 'trannghi1672004@gmail.com', '0937861799', 'user', 'Diamond', '2025-09-23 13:15:07', '2025-09-23 13:15:07'),
-(31, 'abc', 'abc', '$2y$10$BRAOnSiGweY2RgeRsAzZMuVdQ2ATVYvhAUm0YJRKP/M5.3fhHelG2', 'abc@gmail.com', '0333', 'user', 'Common', '2025-09-29 12:44:04', '2025-09-29 12:44:04');
+INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `phone`, `total_spent`, `role`, `status`, `level`, `created_at`, `updated_at`) VALUES
+(2, 'admin', 'admin', '$2y$10$Ec07CKpg1hNTBDP0Co51UO3QvouWMiIZ0hxIfGspf/YdteLNW.DGK', 'admin@gmail.com', '0937861899', 16320000.00, 'admin', 0, 'Silver', '2025-09-20 16:03:36', '2025-10-04 14:22:57'),
+(29, 'Trần Chí Nghị', 'Cisnij', '$2y$10$n0xqv9q/2kC8hElhG7kZlu8Kb/53yHWTcR6xq/kRWLvb1OQMlskO6', 'trannghi1672004@gmail.com', '0937861799', 0.00, 'user', 0, 'Common', '2025-09-23 13:15:07', '2025-10-03 11:11:39'),
+(31, 'abc', 'abc', '$2y$10$BRAOnSiGweY2RgeRsAzZMuVdQ2ATVYvhAUm0YJRKP/M5.3fhHelG2', 'abc@gmail.com', '0333', 0.00, 'user', 0, 'Common', '2025-09-29 12:44:04', '2025-10-03 11:12:31'),
+(32, 'Trần Chí Nghị', 'Cisnij1', '$2y$10$8JxzB1xXgFgur/alW7LFc.hbm90tjaeWciTMmeKpQBn/7HKRXnTGm', 'trannghi1672004@gmail.com', '0937861799', 0.00, 'admin', 0, 'Common', '2025-10-03 12:30:03', '2025-10-03 12:30:03');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -345,7 +381,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -357,7 +393,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `coupons`
@@ -369,19 +405,19 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT cho bảng `coupon_usages`
 --
 ALTER TABLE `coupon_usages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT cho bảng `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -399,7 +435,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -457,8 +493,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-ALTER TABLE `users`ADD COLUMN `total_spent` DECIMAL(15, 2) NOT NULL DEFAULT 0.00 AFTER `phone`;
-
-ALTER TABLE `users` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' AFTER `role`;

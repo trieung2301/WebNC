@@ -25,7 +25,7 @@ $users = $staff ?? [];
         </form>
         
         <div class="d-flex justify-content-end">
-            <a href="index.php?action=admin/staff/add" class="btn btn-success">
+            <a href="/php-pj/admin/staff/add" class="btn btn-success">
                 <i class="fa-solid fa-user-plus"></i> Thêm Nhân viên
             </a>
         </div>
@@ -83,7 +83,7 @@ $users = $staff ?? [];
                             
                             <td class="text-center text-nowrap">
                                 
-                                <a href="/php-pj/index.php?action=admin/staff/edit&id=<?= $user['id'] ?>" 
+                                <a href="/php-pj/admin/staff/edit&id=<?= $user['id'] ?>" 
                                     class="btn btn-sm btn-primary" 
                                     title="Chỉnh sửa thông tin"
                                     <?= $isSelf ? 'disabled' : '' ?>>
@@ -102,7 +102,7 @@ $users = $staff ?? [];
                                 $buttonClass = $isLocked ? 'btn-success' : 'btn-secondary';
                                 $buttonIcon = $isLocked ? 'fa-lock-open' : 'fa-lock';
                                 ?>
-                                <form action="/php-pj/index.php?action=admin/staff/toggleStatus" method="POST" class="d-inline">
+                                <form action="/php-pj/admin/staff/toggleStatus" method="POST" class="d-inline">
                                     <input type="hidden" name="id" value="<?= $user['id'] ?>">
                                     <input type="hidden" name="status" value="<?= $status ?>">
                                     <button type="submit" class="btn btn-sm <?= $buttonClass ?>" 
@@ -113,7 +113,7 @@ $users = $staff ?? [];
                                     </button>
                                 </form>
                                 
-                                <a href="/php-pj/index.php?action=admin/staff/delete&id=<?= $user['id'] ?>" 
+                                <a href="/php-pj/admin/staff/delete&id=<?= $user['id'] ?>" 
                                     onclick="return confirm('Bạn có chắc chắn muốn HẠ CẤP nhân viên ID: <?= $user['id'] ?> thành KHÁCH HÀNG (USER) không?')"
                                     class="btn btn-sm btn-warning" 
                                     title="Hạ cấp thành User"

@@ -22,7 +22,7 @@ unset($$err,$$suc);
             </div>
             <div class="card-body">
                 
-                <form action="index.php?action=<?=htmlspecialchars($actionUrl)?>" method="POST"> 
+                <form action="/php-pj/<?=htmlspecialchars($actionUrl)?>" method="POST"> 
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -63,7 +63,7 @@ unset($$err,$$suc);
                     </div>
                     
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="index.php?action=admin/staff" class="btn btn-secondary">
+                        <a href="/php-pj/admin/staff" class="btn btn-secondary">
                             <i class="fa-solid fa-arrow-left"></i> Quay lại Danh sách
                         </a>
                         <button type="submit" class="btn btn-success" id="submitAddUser">

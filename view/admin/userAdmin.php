@@ -22,7 +22,7 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
         </form>
         
         <div class="d-flex justify-content-end">
-            <a href="/php-pj/index.php?action=admin/users/add" class="btn btn-primary me-2"><i class="fa-solid fa-plus"></i> Thêm Khách hàng</a>
+            <a href="/php-pj/admin/users/add" class="btn btn-primary me-2"><i class="fa-solid fa-plus"></i> Thêm Khách hàng</a>
         </div>
     </div>
 
@@ -63,17 +63,17 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                             <td><span class="badge bg-<?= $status == 0 ? 'success' : 'danger' ?>"><?= $status == 0 ? 'Hoạt động' : 'Đã khóa' ?></span></td>
                             
                             <td class="text-nowrap text-center">
-                                <a href="/php-pj/index.php?action=admin/users/edit&id=<?= $id ?>" class="btn btn-sm btn-info" title="Sửa thông tin"><i class="fa-solid fa-edit"></i></a>
+                                <a href="/php-pj/admin/users/edit&id=<?= $id ?>" class="btn btn-sm btn-info" title="Sửa thông tin"><i class="fa-solid fa-edit"></i></a>
                                 
                                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#changePasswordModal<?= $id ?>" title="Đổi mật khẩu"><i class="fa-solid fa-key"></i></button>
                                 
-                                <form action="/php-pj/index.php?action=admin/users/toggleStatus" method="POST" class="d-inline" onsubmit="return confirm('Bạn có muốn <?= $confirmAction ?> người dùng này không?');">
+                                <form action="/php-pj/admin/users/toggleStatus" method="POST" class="d-inline" onsubmit="return confirm('Bạn có muốn <?= $confirmAction ?> người dùng này không?');">
                                     <input type="hidden" name="id" value="<?= $id ?>">
                                     <input type="hidden" name="status" value="<?= $status ?>"> 
                                     <button type="submit" class="btn btn-sm <?= $buttonClass ?>" title="<?= $isLocked ? 'Mở khóa tài khoản' : 'Khóa tài khoản' ?>"><i class="fa-solid <?= $buttonIcon ?>"></i></button>
                                 </form>
                                 
-                                <a href="/php-pj/index.php?action=admin/users/delete&id=<?= $id ?>" 
+                                <a href="/php-pj/admin/users/delete&id=<?= $id ?>" 
                                    onclick="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn người dùng ID: <?= $id ?> không?')"
                                    class="btn btn-sm btn-danger" title="Xóa vĩnh viễn"><i class="fa-solid fa-trash"></i></a>
                             </td>

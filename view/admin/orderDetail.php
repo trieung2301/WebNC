@@ -35,7 +35,7 @@ function formatShippingAddress($orderDetail) {
         <h1 class="mb-4 text-dark"><i class="fa-solid fa-receipt"></i> Chi tiết Đơn hàng #<?= htmlspecialchars($orderId) ?></h1>
 
         <div class="d-flex justify-content-between mb-4">
-            <a href="index.php?action=admin/orders" class="btn btn-secondary">
+            <a href="/php-pj/admin/orders" class="btn btn-secondary">
                 <i class="fa-solid fa-arrow-left"></i> Quay lại Danh sách Đơn hàng
             </a>
             

@@ -23,8 +23,8 @@
             
       <!-- Nút điều hướng -->
       <div class="mt-4">
-        <a href="/php-pj/index.php" class="btn btn-primary">⬅️ Tiếp tục mua sắm</a>
-        <a href="/php-pj/index.php?action=order" class="btn btn-outline-secondary">📦 Xem đơn hàng</a>
+        <a href="/php-pj/home" class="btn btn-primary">⬅️ Tiếp tục mua sắm</a>
+        <a href="/php-pj/order" class="btn btn-outline-secondary">📦 Xem đơn hàng</a>
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@ $username = $targetUser['username'] ?? 'N/A';
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
-            <form action="index.php?action=<?= htmlspecialchars($actionUrl) ?>" method="POST"> 
+            <form action="/php-pj/<?= htmlspecialchars($actionUrl) ?>" method="POST"> 
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
                     

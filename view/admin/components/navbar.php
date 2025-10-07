@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/php-pj/index.php?action=homeAdmin">Trang chủ Admin</a>
-        <a href="/php-pj/index.php?action=home" class="btn btn-outline-light me-3">
+        <a class="navbar-brand" href="/php-pj/homeAdmin">Trang chủ Admin</a>
+        <a href="/php-pj/home" class="btn btn-outline-light me-3">
             <i class="fa-solid fa-arrow-left"></i> Quay lại Shop
         </a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -13,7 +13,7 @@
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/php-pj/index.php?action=logout">Đăng xuất</a>
+                    <a class="nav-link" href="/php-pj/logout">Đăng xuất</a>
                 </li>
             </ul>
         </div>

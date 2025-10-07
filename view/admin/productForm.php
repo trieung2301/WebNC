@@ -27,7 +27,7 @@ function getProductValue($product, $key, $default = '') {
     <?php endif; 
     ?>
 
-    <form action="index.php?action=<?php echo $actionUrl; ?>" method="POST" enctype="multipart/form-data">
+    <form action="/php-pj/<?php echo $actionUrl; ?>" method="POST" enctype="multipart/form-data">
         
         <?php if ($isEdit): ?>
             <input type="hidden" name="id" value="<?php echo getProductValue($product, 'id'); ?>">
@@ -95,7 +95,7 @@ function getProductValue($product, $key, $default = '') {
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-save"></i> <?php echo $isEdit ? "Cập Nhật Sản Phẩm" : "Thêm Sản Phẩm"; ?>
                     </button>
-                    <a href="index.php?action=admin/products" class="btn btn-secondary">
+                    <a href="/php-pj/admin/products" class="btn btn-secondary">
                         <i class="fa-solid fa-arrow-left"></i> Quay lại Danh sách
                     </a>
                 </div>

@@ -23,7 +23,7 @@ $searchTerm = $_GET['search'] ?? '';
             <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-search"></i></button>
         </form>
         
-        <a href="index.php?action=admin/addProduct" class="btn btn-success">
+        <a href="/php-pj/admin/addProduct" class="btn btn-success">
             <i class="fa-solid fa-plus"></i> Thêm Sản Phẩm
         </a>
     </div>
@@ -55,7 +55,7 @@ $searchTerm = $_GET['search'] ?? '';
                         <tr>
                             <td><?= htmlspecialchars($product['id']) ?></td>
                             <td>
-                                <img src="<?= htmlspecialchars($product['image'] ?? 'placeholder.jpg') ?>" alt="<?= htmlspecialchars($product['name']) ?>" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                <img src="/php-pj/view/image/<?= htmlspecialchars($product['image'] ?? 'placeholder.jpg') ?>" alt="<?= htmlspecialchars($product['name']) ?>" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
                             </td>
                             <td><?= htmlspecialchars($product['name']) ?></td>
                             <td>
@@ -75,7 +75,7 @@ $searchTerm = $_GET['search'] ?? '';
                             
                             <td class="text-center" style="min-width: 140px;">
                                 
-                                <a href="index.php?action=admin/editProduct&id=<?= $product['id'] ?>" class="btn btn-sm btn-primary" title="Chỉnh sửa">
+                                <a href="/php-pj/admin/editProduct&id=<?= $product['id'] ?>" class="btn btn-sm btn-primary" title="Chỉnh sửa">
                                     <i class="fa-solid fa-edit"></i>
                                 </a>
 
@@ -117,7 +117,7 @@ foreach ($modals as $data) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <a href="index.php?action=admin/deleteProduct&id=<?= $productId ?>" class="btn btn-danger">Xóa</a>
+                <a href="/php-pj/admin/deleteProduct&id=<?= $productId ?>" class="btn btn-danger">Xóa</a>
             </div>
         </div>
     </div>

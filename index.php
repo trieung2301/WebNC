@@ -21,7 +21,7 @@ require_once __DIR__ . "/controller/site/CategoryController.php";
 require_once __DIR__ . "/controller/site/CartController.php";
 require_once __DIR__ . "/controller/site/OrderController.php";
 require_once __DIR__ . "/controller/site/CheckoutController.php";
-
+require_once __DIR__ . "/controller/site/EditProfileController.php";
 //controller Admin (Added from the first file)
 require_once __DIR__ . "/controller/admin/HomeAdminController.php";
 require_once __DIR__ . "/controller/admin/ProductAdminController.php";
@@ -52,7 +52,7 @@ $categoryController = new CategoryController($categoryModel);
 $cartController= new CartController($cartModel,$productsModel);
 $orderController= new OrderController($orderModel,$productsModel,$orderItemsModel);
 $checkoutController= new CheckoutController($cartModel,$orderModel,$productsModel,$orderItemsModel,$couponModel,$couponUsageModel);
-
+$editProfileController = new EditProfileController($userModel);
 //controller Admin (Added from the first file)
 $homeAdminController = new HomeAdminController($userModel, $productsModel, $orderModel);
 $productAdminController = new ProductAdminController($productsModel, $categoryModel);
@@ -61,15 +61,21 @@ $staffAdminController = new StaffAdminController($userModel);
 $orderAdminController = new OrderAdminController($orderModel, $userModel);
 $discountAdminController = new DiscountAdminController($couponModel);
 
-$action = $_GET['action'] ?? 'home';
-switch ($action) {
+// Lấy URL từ rewrite
+// Lấy và lọc URL
+$url = isset($_GET['url']) ? trim($_GET['url'], '/') : '';
+$url = filter_var($url, FILTER_SANITIZE_URL);
+$segments = $url === '' ? [] : explode('/', $url);// Tách URL thành mảng các segment
+$main = implode('/', $segments);
+
+switch ($main) {
     //========================================== SITE ROUTES ==========================================//
     case 'login':
         $authController->login();
         break;
     case 'home':
-        $homeController->home();
         $cartController->add();
+        $homeController->home();
         break;
     case 'logout':
         $authController->logout();
@@ -78,6 +84,7 @@ switch ($action) {
         $authController->register();
         break;
     case 'getProducts':
+        $cartController->add();
         $products = $productController->getAll();  // Lấy danh sách sản phẩm
         $categories = $categoryController->getAll();  // Lấy danh sách danh mục
         $cate_id=$_GET['category'] ?? 'all';// lấy ra id của cate từ frontend
@@ -89,11 +96,12 @@ switch ($action) {
             $products = $productController->getProductCategory($cate_id);
         }
         include __DIR__ . '/view/site/products.php';
-        $cartController->add();
+        
         break;
     case 'productDetails':
-        $productController->productDetails();
         $cartController->add();
+        $productController->productDetails();
+        
         break;
     case 'cart':
         $cartController->index();
@@ -109,6 +117,9 @@ switch ($action) {
         break;
     case 'success':
         include __DIR__ . '/view/site/success.php';
+        break;
+    case 'editProfile':
+        $editProfileController->editProfile();
         break;
 
     //========================================== ADMIN ROUTES (Added from the first file) ==========================================//
@@ -216,6 +227,6 @@ switch ($action) {
         break;
 
     default:
-        header("Location: index.php?action=home");
+        header("Location: /php-pj/home");
         exit;
 }

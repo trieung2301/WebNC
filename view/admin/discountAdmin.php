@@ -75,7 +75,7 @@ function formatValue($value) {
                             Sửa
                         </button>
 
-                        <form action="index.php?action=admin/discounts/toggleStatus" method="POST" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn <?= $currentStat == 1 ? 'vô hiệu hóa' : 'kích hoạt' ?> mã này?')">
+                        <form action="/php-pj/admin/discounts/toggleStatus" method="POST" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn <?= $currentStat == 1 ? 'vô hiệu hóa' : 'kích hoạt' ?> mã này?')">
                             <input type="hidden" name="code" value="<?= htmlspecialchars($coupon['code']) ?>">
                             <input type="hidden" name="action_type" value="<?= $currentStat == 1 ? 'disable' : 'enable' ?>">
                             <button type="submit" class="btn btn-sm <?= $currentStat == 1 ? 'btn-danger' : 'btn-success' ?>">

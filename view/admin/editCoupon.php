@@ -3,7 +3,7 @@
 <div class="modal fade" id="editCouponModal" tabindex="-1" aria-labelledby="editCouponModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="index.php?action=admin/discounts/update" method="POST">
+            <form action="/php-pj/admin/discounts/update" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editCouponModalLabel">Sửa mã giảm giá</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

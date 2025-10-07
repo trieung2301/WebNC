@@ -1,7 +1,11 @@
 <?php include __DIR__ . '/components/header.php'; ?>
 <div class="container my-5">
   <h1 class="mb-4 text-center">Trang Đặt Hàng</h1>
-
+    <?php if (!empty($error)): ?>
+      <div class="alert alert-danger text-center">
+          <?= htmlspecialchars($error) ?>
+      </div>
+  <?php endif; ?>
   <form method="POST" action="">
     <!-- Họ và tên -->
     <div class="mb-3">

@@ -22,7 +22,7 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                 Thông tin cơ bản
             </div>
             <div class="card-body">
-                <form action="/php-pj/index.php?action=admin/staff/update" method="POST">
+                <form action="/php-pj/admin/staff/update" method="POST">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']) ?>">
                     
                     <div class="row">
@@ -65,7 +65,7 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="/php-pj/index.php?action=admin/staff" class="btn btn-secondary">
+                        <a href="/php-pj/admin/staff" class="btn btn-secondary">
                             <i class="fa-solid fa-arrow-left"></i> Quay lại
                         </a>
                         <button type="submit" class="btn btn-primary">
