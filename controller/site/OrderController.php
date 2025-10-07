@@ -30,7 +30,8 @@ class OrderController {
                 $quantity   = $item['quantity'];
                 $this->productModel->increaseStock($product_id, $quantity);
             }
-            header("Location: /php-pj/index.php?action=order");
+            header("Location: /php-pj/order");
+            exit;
         }
 
         include __DIR__ . "/../../view/site/order.php";

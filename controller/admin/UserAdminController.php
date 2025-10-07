@@ -10,7 +10,7 @@ class UserAdminController {
 
     private function adminCheck(): void {
         if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] ?? 'user') !== 'admin') { 
-            header("Location: /php-pj/index.php?action=login");
+            header("Location: /php-pj/login");
             exit;
         }
     }
@@ -58,7 +58,7 @@ class UserAdminController {
         $this->adminCheck(); 
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-             header("Location: index.php?action=admin/users");
+             header("Location: /php-pj/admin/users");
              exit;
         }
 
@@ -83,19 +83,19 @@ class UserAdminController {
         
         if (!empty($errorMessage)) {
             $_SESSION['error_message'] = $errorMessage;
-            header("Location: index.php?action=admin/users/add"); 
+            header("Location: /php-pj/admin/users/add"); 
             exit;
         }
         
         if (!$this->userModel->register($userData)) {
             $_SESSION['error_message'] = "Lỗi khi thêm khách hàng vào cơ sở dữ liệu. Vui lòng thử lại.";
-            header("Location: index.php?action=admin/users/add"); 
+            header("Location: /php-pj/admin/users/add"); 
             exit;
         }
         
         $_SESSION['success_message'] = "Thêm khách hàng **{$userData['username']}** thành công! ✅";
         unset($_SESSION['old_input']);
-        header("Location: index.php?action=admin/users");
+        header("Location: /php-pj/admin/users");
         exit;
     }
 
@@ -111,7 +111,7 @@ class UserAdminController {
             return;
         }
         
-        header("Location: index.php?action=admin/users"); 
+        header("Location: /php-pj/admin/users"); 
         exit;
     }
 
@@ -119,7 +119,7 @@ class UserAdminController {
         $this->adminCheck();
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-             header("Location: index.php?action=admin/users");
+             header("Location: /php-pj/admin/users");
              exit;
         }
 
@@ -145,7 +145,7 @@ class UserAdminController {
             }
         }
         
-        header("Location: index.php?action=admin/users"); 
+        header("Location: /php-pj/admin/users"); 
         exit;
     }
 
@@ -153,7 +153,7 @@ class UserAdminController {
         $this->adminCheck();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-             header("Location: index.php?action=admin/users");
+             header("Location: /php-pj/admin/users");
              exit;
         }
         
@@ -171,7 +171,7 @@ class UserAdminController {
              $_SESSION['error_message'] = "Lỗi khi cập nhật mật khẩu.";
         }
         
-        header("Location: index.php?action=admin/users");
+        header("Location: /php-pj/admin/users");
         exit;
     }
 
@@ -179,7 +179,7 @@ class UserAdminController {
         $this->adminCheck();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-             header("Location: index.php?action=admin/users");
+             header("Location: /php-pj/admin/users");
              exit;
         }
         
@@ -193,7 +193,7 @@ class UserAdminController {
             
             if (!$userExists) {
                 $_SESSION['error_message'] = "ID người dùng không tồn tại.";
-                header("Location: index.php?action=admin/users");
+                header("Location: /php-pj/admin/users");
                 exit;
             }
 
@@ -207,7 +207,7 @@ class UserAdminController {
             }
         }
         
-        header("Location: index.php?action=admin/users");
+        header("Location: /php-pj/admin/users");
         exit;
     }
 
@@ -223,7 +223,7 @@ class UserAdminController {
             $_SESSION['error_message'] = "Lỗi khi xóa người dùng ID: {$id}.";
         }
         
-        header("Location: index.php?action=admin/users");
+        header("Location:/php-pj/admin/users");
         exit;
     }
 }

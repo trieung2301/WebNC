@@ -12,7 +12,7 @@ class AuthController {
             $password = $_POST['password'] ?? '';
             if (empty($username) || empty($password)){ //check
                 $_SESSION['error'] = "Vui lòng nhập đầy đủ thông tin!";
-                header("Location: /php-pj/index.php?action=login"); //redirect khi sai
+                header("Location: /php-pj/login"); //redirect khi sai
                 exit;
             }
             $userFromDB = $this->userModel->findByUsername($username);//gọi từ model kiểm tra có tk k
@@ -21,9 +21,9 @@ class AuthController {
                 $_SESSION['user'] = ['id' => $userFromDB['id'], 'username' => $userFromDB['username'],'role' => $role]; //lưu session với cặp key id và username + thêm : lưu role để có thể chuyển sang admin
                 $_SESSION['login-success'] = "Đăng nhập thành công!"; // lưu session thông báo
                 if ($role === 'admin') {
-                    header("Location: /php-pj/index.php?action=homeAdmin"); 
+                    header("Location: /php-pj/homeAdmin"); 
                 } else {
-                    header("Location: /php-pj/index.php?action=home");
+                    header("Location: /php-pj/home");
                 }
                 exit;
             } else {
@@ -35,7 +35,7 @@ class AuthController {
     public function logout(): void {
         session_unset(); // xóa các session đã lưu
         session_destroy();
-        header("Location: /php-pj/index.php?action=login");
+        header("Location: /php-pj/login");
         exit;
     }
     public function register(): void{
@@ -50,12 +50,12 @@ class AuthController {
             if($password != $confirmPassword) //kiểm tra pass đối chiếu
             {
                 $_SESSION['regis-error']="Mật khẩu không khớp!";
-                header("Location: /php-pj/index.php?action=register");
+                header("Location: /php-pj/register");
                 exit;
             }
             if ($this->userModel->findByUsername($username)) { //kiểm tra user đã tồn tại chưa
                 $_SESSION['regis-error'] = "Username đã tồn tại!";
-                header("Location: /php-pj/index.php?action=register");
+                header("Location: /php-pj/register");
                 exit;
             }
             $result =$this->userModel->register([ // gọi db để tạo , truyền vào cặp key value nên db phải gọi array
@@ -63,11 +63,11 @@ class AuthController {
             ]);
             if($result)
             {
-                header('location: /php-pj/index.php?action=login');
+                header('location: /php-pj/login');
             }
             else{
                 $_SESSION['regis-error']='Thất bại';
-                header('location: /php-pj/index.php?action=register');
+                header('location: /php-pj/register');
             }
             
 

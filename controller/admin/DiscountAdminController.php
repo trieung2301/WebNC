@@ -13,7 +13,7 @@ class DiscountAdminController {
 
     private function adminCheck(): void {
         if (($_SESSION['user']['role'] ?? 'user') !== 'admin') { 
-            header("Location: /php-pj/index.php?action=login");
+            header("Location: /php-pj/login");
             exit;
         }
     }
@@ -77,7 +77,7 @@ class DiscountAdminController {
                 $_SESSION['error_message'] = "Lỗi hệ thống khi thêm mã.";
             }
             
-            header("Location: index.php?action=admin/discounts");
+            header("Location: /php-pj/admin/discounts");
             exit;
         }
         
@@ -107,7 +107,7 @@ class DiscountAdminController {
                 }
             }
         }
-        header("Location: index.php?action=admin/discounts");
+        header("Location: /php-pj/admin/discounts");
         exit;
     }
 
@@ -133,7 +133,7 @@ class DiscountAdminController {
             }
         }
 
-        header("Location: index.php?action=admin/discounts");
+        header("Location: /php-pj/admin/discounts");
         exit;
     }
 }

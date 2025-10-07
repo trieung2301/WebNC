@@ -21,7 +21,7 @@ class Coupon {
         $stmt = $this->pdo->prepare("UPDATE coupons SET used_count = used_count + 1 WHERE code = ? AND used_count < usage_limit");
         $stmt->execute([$couponCode]);
     }
-    public function increaseCouponCount(string $couponCode, int $status) {
+    public function increaseCouponCount(string $couponCode) {
         $stmt = $this->pdo->prepare("UPDATE coupons SET used_count = used_count + 1 WHERE code = ?");
         $stmt->execute([$couponCode]);
     }

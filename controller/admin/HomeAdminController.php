@@ -17,7 +17,7 @@ class HomeAdminController {
 
     private function adminCheck(): void {
         if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] ?? 'user') !== 'admin') { 
-            header("Location: /php-pj/index.php?action=login");
+            header("Location: /php-pj/login");
             exit;
         }
     }

@@ -8,8 +8,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <span class="nav-link">
-                        <i class="fa-solid fa-user-circle"></i>
-                        <?php echo htmlspecialchars($_SESSION['user']['username'] ?? 'Admin'); ?>
+                        <li class="nav-item">
+                        <a class="nav-link text-white" href="/php-pj/editProfileAdmin">
+                            <i class="fa-solid fa-user-circle"></i>
+                            <?php echo htmlspecialchars($_SESSION['user']['username'] ?? 'Admin'); ?>
+                        </a>
+                    </li>
                     </span>
                 </li>
                 <li class="nav-item">

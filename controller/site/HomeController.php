@@ -14,7 +14,7 @@ class HomeController
     public function home(): void
     {
         if (!isset($_SESSION['user'])) { //kiểm tra user có auth
-            header("Location: /php-pj/index.php?action=login");
+            header("Location: /php-pj/login");
             exit;
         }
         $products = $this->product->getAllProducts(); //lấy ra tất cả sp

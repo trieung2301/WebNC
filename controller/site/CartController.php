@@ -11,7 +11,7 @@ class CartController {
     public function index() {
         if (!isset($_SESSION['user'])) {
             $_SESSION['ERROR'] = 'Bạn cần đăng nhập để xem giỏ hàng!';
-            header('Location: index.php?action=login');
+            header('Location: /php-pj/login');
             exit;
         }
         $user_id = $_SESSION['user']['id'];
@@ -20,7 +20,7 @@ class CartController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
             $product_id = $_POST['product_id'];
             $this->cartModel->deleteFromCart($user_id,$product_id);
-            header('Location: index.php?action=cart');
+            header('Location: /php-pj/cart');
         }
         include __DIR__ . '/../../view/site/cart.php';
     }
@@ -28,7 +28,7 @@ class CartController {
     public function add() {
         if (!isset($_SESSION['user'])) {
             $_SESSION['ERROR'] = 'Bạn cần đăng nhập để thêm sản phẩm!';
-            header('Location: index.php?action=login');
+            header('Location: /php-pj/login');
             exit;
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
@@ -40,11 +40,11 @@ class CartController {
             $stockCart= $this->productsModel->checkQuantityCart($user_id, $product_id);//check số lg trong giỏ hàng
             $newStock= $stockCart + $quantity; // số lg mới bằng số đã có trong giỏ hàng + với số vừa thêm vào
             if($newStock > $stockProduct){ // nếu thêm vào vượt quá thì redirect thoát luôn
-                header('Location: index.php?action=cart');
+                header('Location: /php-pj/cart');
                 exit;
             }
             $this->cartModel->addToCart($user_id, $product_id, $quantity);
-            exit;
+            return;;
         }
     }
 }

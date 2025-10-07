@@ -38,7 +38,7 @@ class ProductController {
             $this->productModel->createProduct($data);
 
             // Chuyển hướng về danh sách sản phẩm
-            header('Location: index.php?action=index');
+            header('Location: /php-pj/home');
         }
     }
 
@@ -61,14 +61,14 @@ class ProductController {
             $this->productModel->updateProduct($id, $data);
 
             // Chuyển hướng về danh sách sản phẩm
-            header('Location: index.php?action=index');
+            header('Location:/php-pj/home');
         }
     }
 
     // Xóa sản phẩm
     public function delete($id) {
         $this->productModel->deleteProduct($id);
-        header('Location: index.php?action=index');
+        header('Location: /php-pj/home');
     }
     public function getProductCategory($categoryId):array
     {
@@ -80,14 +80,14 @@ class ProductController {
         // Đảm bảo người dùng đã đăng nhập
         if (!isset($_SESSION['user'])) {
             $_SESSION['ERROR'] = 'Bạn cần đăng nhập để thực hiện hành động này!';
-            header('Location: index.php?action=login');
+            header('Location: /php-pj/login');
             exit;
         }
         $user_id = $_SESSION['user']['id'];
         $id = $_GET['id'] ?? null;// Lấy product_id từ URL
         if (!$id) {
             $_SESSION['ERROR'] = 'Sản phẩm không tồn tại!';
-            header('Location: index.php?action=home');
+            header('Location: /php-pj/home');
             exit;
         }
         $product = $this->productModel->getProductById($id);
@@ -109,7 +109,7 @@ class ProductController {
                     }
                 }
 
-                header("Location: index.php?action=productDetails&id=$id");
+                header("Location: /php-pj/productDetails&id=$id");
                 exit;
             }
             if (isset($_POST['rating'])) {// kiểm tra request từ rating
@@ -127,7 +127,7 @@ class ProductController {
                     }
                 }
 
-                header("Location: index.php?action=productDetails&id=$id");
+                header("Location: /php-pj/productDetails&id=$id");
                 exit;
             }
         }

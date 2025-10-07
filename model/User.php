@@ -38,22 +38,50 @@ class User {
         $user = $stmt->fetch();
         return $user ? $user : null;
     }
-    public function update(array $userData): bool {
-        $hash = password_hash($userData['password'], PASSWORD_DEFAULT);// chuyển đổi thành mã băm, tham số 1 là pass usser input 2 là hàm thực thi băm
-        $sql = "UPDATE users SET 
-                fullname = ?, username = ?, email = ?, password = ?, phone = ?, role = ?, updated_at = NOW()
-                WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([
-            $userData['fullname'],
-            $userData['username'],
-            $userData['email'],
-            $hash,
-            $userData['phone'],
-            $userData['role'],
-            $userData['id']
-        ]);
+    // public function update(int $id, array $userData): bool {
+    //     $hash = password_hash($userData['password'], PASSWORD_DEFAULT);// chuyển đổi thành mã băm, tham số 1 là pass usser input 2 là hàm thực thi băm
+    //     $sql = "UPDATE users SET 
+    //             fullname = ?, username = ?, email = ?, password = ?, phone = ?, role = ?, updated_at = NOW()
+    //             WHERE id = ?";
+    //     $stmt = $this->pdo->prepare($sql);
+    //     return $stmt->execute([
+    //         $userData['fullname'],
+    //         $userData['username'],
+    //         $userData['email'],
+    //         $hash,
+    //         $userData['phone'],
+    //         $userData['role'],
+    //         $userData['id']
+    //     ]);
+    // }
+    public function updateProfile(int $id, array $data): bool {
+        if (!empty($data['password'])) {
+            $hash = password_hash($data['password'], PASSWORD_DEFAULT);
+            $sql = "UPDATE users 
+                    SET fullname = ?, email = ?, phone = ?, password = ?, updated_at = NOW()
+                    WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([
+                $data['fullname'],
+                $data['email'],
+                $data['phone'],
+                $hash,
+                $id
+            ]);
+        } else {
+            $sql = "UPDATE users 
+                    SET fullname = ?, email = ?, phone = ?, updated_at = NOW()
+                    WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([
+                $data['fullname'],
+                $data['email'],
+                $data['phone'],
+                $id
+            ]);
+        }
     }
+
     public function updateWithoutPassword(array $userData): bool {
         $sql = "UPDATE users SET 
                 fullname = ?, username = ?, email = ?, phone = ?, role = ?, updated_at = NOW()

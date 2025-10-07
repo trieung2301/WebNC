@@ -80,29 +80,7 @@
     </div>
   </div>
 </section>
-
-<!-- ==================== GOOGLE MAP ==================== -->
-<section class="py-5 bg-white">
-  <div class="container">
-    <h2 class="text-center mb-4 fw-bold">Vị trí cửa hàng</h2>
-    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.777580236414!2d106.69927097570303!3d10.751617859649468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f736589a387%3A0x9147855bfef1be53!2zNzAxIMSQLiBUcuG6p24gWHXDom4gU2_huqFuLCBQLCBRdeG6rW4gNywgSOG7kyBDaMOtIE1pbmggNzAwMDAwLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1759237711117!5m2!1svi!2s" 
-        style="border:0;" 
-        allowfullscreen 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer-modern text-white text-center py-4">
-  &copy; 2025 <strong>WatchShop</strong>. All Rights Reserved.
-  <br>
-  Hỗ trợ: <a href="tel:+84937861799" class="text-info text-decoration-none">+84 937 861 799</a>
-</footer>
+<?php include __DIR__ . '/components/footer.php'; ?>
 
 <!-- ==================== CSS TÙY CHỈNH ==================== -->
 <style>

@@ -13,7 +13,7 @@ class ProductAdminController {
 
     private function adminCheck(): void {
         if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] ?? 'user') !== 'admin') { 
-            header("Location: /php-pj/index.php?action=login");
+            header("Location: /php-pj/login");
             exit;
         }
     }
@@ -91,7 +91,7 @@ class ProductAdminController {
             $uploadedFileName = $this->handleImageUpload('image_file'); 
             
             if ($uploadedFileName === 'error') {
-                header("Location: index.php?action=admin/addProduct");
+                header("Location: /php-pj/admin/addProduct");
                 exit;
             }
 
@@ -104,20 +104,20 @@ class ProductAdminController {
             
             if (empty($name) || $price <= 0 || $categoryId <= 0) {
                 $_SESSION['error_message'] = "Vui lòng nhập đầy đủ Tên sản phẩm, Giá và chọn Danh mục.";
-                header("Location: index.php?action=admin/addProduct");
+                header("Location: /php-pj/admin/addProduct");
                 exit;
             }
 
             if ($this->productModel->createProduct($data)) {
                 $_SESSION['success_message'] = "Thêm sản phẩm '{$name}' thành công! ✅";
-                header("Location: index.php?action=admin/products");
+                header("Location: /php-pj/admin/products");
                 exit;
             } else {
                 $_SESSION['error_message'] = "Lỗi khi thêm sản phẩm vào cơ sở dữ liệu. Vui lòng thử lại.";
             }
         }
         
-        header("Location: index.php?action=admin/addProduct"); 
+        header("Location: /php-pj/admin/addProduct"); 
         exit;
     }
 
@@ -129,7 +129,7 @@ class ProductAdminController {
 
         if (!$product) {
             $_SESSION['error_message'] = "Không tìm thấy sản phẩm cần chỉnh sửa.";
-            header("Location: index.php?action=admin/products");
+            header("Location: /php-pj/admin/products");
             exit;
         }
 
@@ -155,7 +155,7 @@ class ProductAdminController {
             $uploadedFileName = $this->handleImageUpload('image_file'); 
 
             if ($uploadedFileName === 'error') {
-                header("Location: index.php?action=admin/editProduct&id={$id}");
+                header("Location: /php-pj/admin/editProduct&id={$id}");
                 exit;
             }
 
@@ -168,7 +168,7 @@ class ProductAdminController {
 
             if ($id <= 0 || empty($name) || $price <= 0 || $categoryId <= 0) {
                 $_SESSION['error_message'] = "Dữ liệu cập nhật không hợp lệ. Vui lòng kiểm tra lại.";
-                header("Location: index.php?action=admin/editProduct&id={$id}");
+                header("Location: /php-pj/admin/editProduct&id={$id}");
                 exit;
             }
 
@@ -179,7 +179,7 @@ class ProductAdminController {
             }
         }
         
-        header("Location: index.php?action=admin/products");
+        header("Location: /php-pj/admin/products");
         exit;
     }
 
@@ -190,7 +190,7 @@ class ProductAdminController {
 
         if ($id <= 0) {
             $_SESSION['error_message'] = "ID sản phẩm không hợp lệ.";
-            header("Location: index.php?action=admin/products");
+            header("Location: /php-pj/admin/products");
             exit;
         }
 
@@ -200,7 +200,7 @@ class ProductAdminController {
             $_SESSION['error_message'] = "Lỗi khi xóa sản phẩm ID: {$id}. Có thể do sản phẩm này đang liên quan đến các đơn hàng hoặc bình luận.";
         }
         
-        header("Location: index.php?action=admin/products");
+        header("Location: /php-pj/admin/products");
         exit;
     }
 }

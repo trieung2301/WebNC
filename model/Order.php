@@ -138,5 +138,13 @@ class Order {
         $userId = $stmt->fetchColumn();
         return $userId ? (int)$userId : null;
     }
+    
+    //thêm 
+    public function getAllByStatus(string $status) {
+        $sql = "SELECT orders.*, users.username AS user_name FROM orders LEFT JOIN users ON orders.user_id = users.id WHERE orders.status = ? ORDER BY orders.created_at DESC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$status]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

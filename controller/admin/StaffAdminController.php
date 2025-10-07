@@ -14,7 +14,7 @@ class StaffAdminController {
 
     private function adminCheck(): void {
         if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] ?? 'user') !== 'admin') { 
-            header("Location: /php-pj/index.php?action=login");
+            header("Location: /php-pj/login");
             exit;
         }
     }
@@ -22,7 +22,7 @@ class StaffAdminController {
     protected function checkStaffRole(?array $user): void {
         if (!$user || ($user['role'] ?? 'N/A') !== 'admin') {
             $_SESSION['error_message'] = "Không tìm thấy Nhân viên hoặc ID không hợp lệ.";
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
     }
@@ -65,7 +65,7 @@ class StaffAdminController {
         $this->adminCheck();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
         
@@ -96,7 +96,7 @@ class StaffAdminController {
         
         if (!empty($errorMessage)) {
             $_SESSION['error_message'] = $errorMessage;
-            header("Location: index.php?action=admin/staff/add");
+            header("Location:/php-pj/admin/staff/add");
             exit;
         }
         
@@ -105,12 +105,12 @@ class StaffAdminController {
         if ($result === true) { 
             $_SESSION['success_message'] = "Thêm nhân viên **{$userData['username']}** thành công! ✅";
             unset($_SESSION['old_input']);
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         } else {
             error_log("Lỗi DB khi thêm nhân viên: " . print_r($result, true)); 
             $_SESSION['error_message'] = "Lỗi khi thêm nhân viên vào cơ sở dữ liệu. Vui lòng kiểm tra Log.";
-            header("Location: index.php?action=admin/staff/add");
+            header("Location: /php-pj/admin/staff/add");
             exit;
         }
     }
@@ -129,7 +129,7 @@ class StaffAdminController {
         $this->adminCheck();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
         
@@ -146,7 +146,7 @@ class StaffAdminController {
         
         if (!empty($errorMessage)) {
             $_SESSION['error_message'] = $errorMessage;
-            header("Location: index.php?action=admin/staff"); 
+            header("Location: /php-pj/admin/staff"); 
             exit;
         }
 
@@ -167,7 +167,7 @@ class StaffAdminController {
             $_SESSION['error_message'] = "Lỗi khi cập nhật người dùng.";
         }
         
-        header("Location: index.php?action=admin/staff"); 
+        header("Location: /php-pj/admin/staff"); 
         exit;
     }
 
@@ -175,7 +175,7 @@ class StaffAdminController {
         $this->adminCheck();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
         
@@ -194,7 +194,7 @@ class StaffAdminController {
         
         if (!empty($errorMessage)) {
             $_SESSION['error_message'] = $errorMessage;
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
         
@@ -204,7 +204,7 @@ class StaffAdminController {
             $_SESSION['error_message'] = "Lỗi khi cập nhật mật khẩu.";
         }
         
-        header("Location: index.php?action=admin/staff");
+        header("Location: /php-pj/admin/staff");
         exit;
     }
     
@@ -224,7 +224,7 @@ class StaffAdminController {
         
         if (!empty($errorMessage)) {
             $_SESSION['error_message'] = $errorMessage;
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
         
@@ -243,7 +243,7 @@ class StaffAdminController {
             $_SESSION['error_message'] = "Lỗi khi hạ cấp nhân viên.";
         }
         
-        header("Location: index.php?action=admin/staff");
+        header("Location: /php-pj/admin/staff");
         exit;
     }
     
@@ -251,7 +251,7 @@ class StaffAdminController {
         $this->adminCheck();
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: index.php?action=admin/staff");
+            header("Location: /php-pj/admin/staff");
             exit;
         }
         
@@ -271,7 +271,7 @@ class StaffAdminController {
         
         if (!empty($errorMessage)) {
             $_SESSION['error_message'] = $errorMessage;
-            header("Location: index.php?action=admin/staff");
+            header("Location:/php-pj/admin/staff");
             exit;
         }
 
@@ -282,7 +282,7 @@ class StaffAdminController {
             $_SESSION['error_message'] = "Lỗi khi cập nhật trạng thái nhân viên.";
         }
         
-        header("Location: index.php?action=admin/staff");
+        header("Location: /php-pj/admin/staff");
         exit;
     }
 }

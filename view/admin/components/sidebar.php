@@ -1,3 +1,16 @@
+<?php
+if (!function_exists('isActive')) {
+    function isActive($actionName, $currentAction) {
+        if ($actionName === $currentAction) {
+            return 'active';
+        }
+        return '';
+    }
+}
+$base_path = '/php-pj/';
+$current_action = trim(str_replace($base_path, '', strtok($_SERVER['REQUEST_URI'], '?')), '/');
+
+?>
 <div class="sidebar text-white p-3">
     <ul class="nav flex-column">
         <li class="nav-item">
